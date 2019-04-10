@@ -111,7 +111,7 @@ do
     source=${formula}
     rm -fr ${FORMULA_REPO}/${formula} 2>/dev/null
     case ${formula} in
-    example)   cp -Rp ${SALTFS}/etc/examplet clone https://git.example.com/internal/salt/example-formula ${FORMULA_REPO}/${formula}
+    example)   cp -Rp ${SALTFS}/etc/example clone https://git.example.com/salt/example-formula ${FORMULA_REPO}/${formula}
                ;;
     *)         ## When formula and repo names differ, handle here ..
                [[ "${formula}" == "linuxvda" ]] && source='citrix-linuxvda'
@@ -155,12 +155,6 @@ do
   if [[ -d "${FORMULA_REPO}/${formula}" ]]
   then
     rm -fr ${FORMULA_REPO}/${formula}* ${SALTFS}/${formula} 2>/dev/null
-    if [[ "${formula}" == "linuxvda" ]]
-    then
-        git clone https://github.com/noelmcloughlin/citrix-${formula}-formula.git ${FORMULA_REPO}/${formula} >/dev/null 2>&1
-    else
-        git clone https://github.com/noelmcloughlin/${formula}-formula.git ${FORMULA_REPO}/${formula} >/dev/null 2>&1
-    fi
     if (( $? == 0 ))
     then
         ln -s ${FORMULA_REPO}/${formula}/${formula} ${SALTFS}/${formula} 2>/dev/null
